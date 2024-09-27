@@ -1,0 +1,16 @@
+# .streamlit/config.toml
+
+[theme]
+primaryColor = "#FF6347"  # Tomato
+backgroundColor = "#F5F5F5"  # White Smoke
+secondaryBackgroundColor = "#FFFFFF"  # White
+textColor = "#333333"  # Dark Gray
+font = "sans serif"  # Options: "sans serif", "serif", "monospace"
+layout = "wide"  # Options: "centered", "wide"
+
+# Optionally, specify color for block elements
+# For example, table background
+# blockElementBackgroundColor = "#EFEFEF"
+
+# Note: Streamlit does not currently support direct customization of all elements.
+# For advanced customization, use custom CSS as described above.

@@ -1,0 +1,18 @@
+/* styles.css */
+
+/* Change the font of the entire app */
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Customize header styles */
+.css-1aumxhk h1 {
+    color: #1E90FF;
+}
+
+
+/* Customize button styles */
+.css-1emrehy.edgvbvh3 {
+    background-color: #FF6347;
+    color: white;
+}
