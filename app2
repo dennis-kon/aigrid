@@ -7,6 +7,7 @@ import os
 from io import BytesIO
 import logging
 
+
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -42,13 +43,8 @@ st.set_page_config(
     layout="wide",
 )
 
-# Optional: Apply custom CSS (if you created styles.css)
-# Uncomment the following lines if you have a styles.css file
-# def local_css(file_name):
-#     with open(file_name) as f:
-#         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
-# local_css("styles.css")
+
 
 # Title of the App
 st.title("📊 Excel Analyzer with ChatGPT")
@@ -64,25 +60,25 @@ if uploaded_file is not None:
     try:
         # Read Excel file
         df = pd.read_excel(uploaded_file)
-        st.success("✅ Excel file successfully uploaded and read!")
+        st.success("Excel file successfully uploaded and read!")
         st.dataframe(df.head())
 
         # Input for questions
-        st.header("📝 Define Your Questions")
+        st.header("Define Your Questions")
         st.write("Enter the questions you want ChatGPT to analyze based on the Excel data.")
         questions = st.text_area(
             "Questions",
-            value="1. Provide a summary of the data.\n2. Identify any trends or patterns.\n3. Highlight any anomalies.",
+            value="Provide a summary of the data.\nIdentify any trends or patterns.\nHighlight any anomalies.",
             height=150,
         )
 
         if st.button("Analyze with ChatGPT"):
-            with st.spinner("🔍 Processing..."):
+            with st.spinner("Processing..."):
                 try:
                     # Sample data if too large
-                    if len(df) > 500:
-                        df_sampled = df.sample(n=500)
-                        st.warning("⚠️ Data is large! using a sample of 500 rows for analysis.")
+                    if len(df) > 1000:
+                        df_sampled = df.sample(n=1000)
+                        st.warning("Data is large; using a sample of 1000 rows for analysis.")
                     else:
                         df_sampled = df
 
@@ -101,7 +97,7 @@ if uploaded_file is not None:
 
                     # Call OpenAI API
                     response = openai.ChatCompletion.create(
-                        model="gpt-4",  # Ensure the model name is correct
+                        model="gpt-4o-mini",  # enter  GPT models
                         messages=[
                             {"role": "system", "content": "You are a helpful assistant."},
                             {"role": "user", "content": prompt},
@@ -118,24 +114,19 @@ if uploaded_file is not None:
 
                 except OpenAIError as e:
                     logger.error(f"OpenAI API error: {e}")
-                    st.error(f"❌ OpenAI API returned an error: {e}")
+                    st.error(f"OpenAI API returned an error: {e}")
                 except Exception as e:
                     logger.error(f"Unexpected error: {e}")
-                    st.error(f"❌ An unexpected error occurred: {e}")
+                    st.error(f"An unexpected error occurred: {e}")
 
     except Exception as e:
         logger.error(f"Error reading the Excel file: {e}")
-        st.error(f"❌ Error reading the Excel file: {e}")
+        st.error(f"Error reading the Excel file: {e}")
 else:
-    st.info("📂 Awaiting Excel file upload.")
+    st.info("Awaiting Excel file upload.")
 
 # Footer
 st.markdown("---")
 st.markdown(
-    """
-    <div style="text-align: center;">
-        <p>© 2024 Excel Analyzer App. Powered by <a href="https://openai.com/" target="_blank">OpenAI</a> and <a href="https://streamlit.io/" target="_blank">Streamlit</a>.</p>
-    </div>
-    """,
-    unsafe_allow_html=True,
+    "Developed by Dennis kon with ❤️ using [Streamlit](https://streamlit.io/) and [OpenAI](https://openai.com/)."
 )
